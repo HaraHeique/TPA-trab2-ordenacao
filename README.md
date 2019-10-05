@@ -22,5 +22,35 @@ No escopo do trabalho é necessário implementar sete dos nove algoritmos de ord
 - Smoothsort
 - Patience sorting
 
+### Como executar?
+Para buildar/executar o app no ambiente Linux basta abrir o CLI(Command Line Interface) no diretório __/src__ e digitar o seguinte comando:
+
+    $ python3 build.py arquivo_entrada.csv arquivo_saida.csv --algorithm identificador_algoritmo
+    Ou
+    $ python3 build.py arquivo_entrada.csv arquivo_saida.csv -a identificador_algoritmo
+
+Note que o nome dos arquivos tanto de entrada quanto de saída são obrigatórios. Caso não sejam passados será lançada uma exceção explicando formas de ser executada de maneira correta, ou utilizar o comando abaixo que também fornecerá informações para o correto comando de execução do app.
+
+    $ python3 build.py --help
+    Ou
+    $ python3 build.py -h
+
+Quanto aos identificadores de algoritmo (*identificador_algoritmo*) podem ser utilizados os seguintes:
+
+<div align="center">
+  
+Algoritmo|Identificador
+---|---
+**Selection sort**|selectsort
+**Insert sort**|insertsort
+**Merge Sort**|mergesort
+**Quicksort**|mergesort
+**Heapsort**|heapsort
+**À definir**|...
+**À definir**|...
+
+</div>
+
+
 ### Informações adicionais
 Todo o código fonte está hospedado no [GitHub](https://github.com/HaraHeique/TPA-trab2-ordenacao).
