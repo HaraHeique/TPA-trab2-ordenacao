@@ -46,8 +46,8 @@ Algoritmo|Identificador
 **Selection sort**|selectsort
 **Insert sort**|insertsort
 **Merge Sort**|mergesort
-**Quicksort**|mergesort
-**Heapsort**|quicksort
+**Quicksort**|quicksort
+**Heapsort**|heapsort
 **À definir**|...
 **À definir**|...
 
