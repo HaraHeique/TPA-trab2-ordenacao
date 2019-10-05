@@ -73,6 +73,7 @@ def insertsort(collection: list) -> None:
     		del collection[i]
     		collection.insert(k, aux)
 
+
 ##################################### UNIT LIB TEST #####################################
 def execute_test():
     pass
