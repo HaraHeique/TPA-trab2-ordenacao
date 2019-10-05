@@ -86,25 +86,29 @@ def mergesort(collection: list) -> None:
 
         mergesort(lst_aux_left)
         mergesort(lst_aux_right)
+        __merge(collection, lst_aux_left,lst_aux_right)
 
-        i = j = k = 0
+        
 
-        while (i < lst_aux_left.__len__()) and (j < lst_aux_right.__len__()):
-            if(lst_aux_left[i].compareTo(lst_aux_right[j])):
-                collection[k] = lst_aux_left[i]
-                i += 1
-            else:
-                collection[k] = lst_aux_right[j]
-                j += 1
-            k += 1
+def __merge(collection: list, lst_aux_left: list, lst_aux_right: list):
+    i = j = k = 0
 
-        for l in range(i, lst_aux_left.__len__()):
-            collection[k] = lst_aux_left[l]
-            k += 1
+    while (i < lst_aux_left.__len__()) and (j < lst_aux_right.__len__()):
+        if(lst_aux_left[i].compareTo(lst_aux_right[j])):
+            collection[k] = lst_aux_left[i]
+            i += 1
+        else:
+            collection[k] = lst_aux_right[j]
+            j += 1
+        k += 1
 
-        for r in range(j, lst_aux_right.__len__()):
-            collection[k] = lst_aux_right[r]
-            k += 1
+    for l in range(i, lst_aux_left.__len__()):
+        collection[k] = lst_aux_left[l]
+        k += 1
+
+    for r in range(j, lst_aux_right.__len__()):
+        collection[k] = lst_aux_right[r]
+        k += 1
 
 
 ##################################### UNIT LIB TEST #####################################
