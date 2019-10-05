@@ -37,7 +37,7 @@ Note que o nome dos arquivos tanto de entrada quanto de saída são **obrigatór
     Ou
     $ python3 build.py -h
 
-Já o identificador do algoritmo é um argumento **opcional** precedido de **-**, quando abreviado, ou **--**, sem abreviação. Logo quando não é fornecido o **algoritmo de ordenação default é o Quicksort**. Quanto aos identificadores de algoritmo (*identificador_algoritmo*) podem ser utilizados os seguintes:
+Já o identificador do algoritmo é um argumento **opcional** precedido de **-**, quando abreviado, ou **--**, sem abreviação. Logo quando este parâmetro não é fornecido o **algoritmo de ordenação default é o Quicksort**. Quanto aos identificadores de algoritmo (*identificador_algoritmo*) podem ser utilizados os seguintes:
 
 <div align="center">
   
