@@ -28,14 +28,16 @@ Para buildar/executar o app no ambiente Linux basta abrir o CLI(Command Line Int
     $ python3 build.py arquivo_entrada.csv arquivo_saida.csv --algorithm identificador_algoritmo
     Ou
     $ python3 build.py arquivo_entrada.csv arquivo_saida.csv -a identificador_algoritmo
+    Ou
+    $ python3 build.py arquivo_entrada.csv arquivo_saida.csv
 
-Note que o nome dos arquivos tanto de entrada quanto de saída são obrigatórios. Caso não sejam passados será lançada uma exceção explicando formas de ser executada de maneira correta, ou utilizar o comando abaixo que também fornecerá informações para o correto comando de execução do app.
+Note que o nome dos arquivos tanto de entrada quanto de saída são **obrigatórios**. Caso não sejam passados será lançada uma exceção explicando formas de ser executada de maneira correta, ou utilizar o comando abaixo que também fornecerá informações para o correto comando de execução do app.
 
     $ python3 build.py --help
     Ou
     $ python3 build.py -h
 
-Quanto aos identificadores de algoritmo (*identificador_algoritmo*) podem ser utilizados os seguintes:
+Já o identificador do algoritmo é um argumento **opcional** precedido de **-**, quando abreviado, ou **--**, sem abreviação. Logo quando não é fornecido o **algoritmo de ordenação default é o Quicksort**. Quanto aos identificadores de algoritmo (*identificador_algoritmo*) podem ser utilizados os seguintes:
 
 <div align="center">
   
@@ -45,7 +47,7 @@ Algoritmo|Identificador
 **Insert sort**|insertsort
 **Merge Sort**|mergesort
 **Quicksort**|mergesort
-**Heapsort**|heapsort
+**Heapsort**|quicksort
 **À definir**|...
 **À definir**|...
 
