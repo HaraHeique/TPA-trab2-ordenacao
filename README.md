@@ -3,7 +3,7 @@
 O trabalho em questão é da disciplina de *TPA (Técnicas de Programação Avançada)*, do curso de graduação de Bacharelado de Sistema de Informação do IFES - Serra, pelo docente Dr. Jefferson Oliveira Andrade.
 
 ### Informações gerais
-- **Autores**: Douglas Vilaça, Harã Heique e Larissa Motta
+- **Autores**: David Vilaça, Harã Heique e Larissa Motta
 - **Linguagem de programação**: Python (versão 3.6.8+)
 - **Ferramentas de suporte**: Nenhuma (por enquanto)
 - **Ambiente de desenvolvimento**: Visual Studio Code (versão 1.35.1+) e PyCharm Community (versão 2018.3+)

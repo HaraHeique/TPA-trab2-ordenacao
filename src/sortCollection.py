@@ -4,29 +4,40 @@
     A module responsible for sorting collections with many diferents types of algorithms.
 '''
 
-def sort(collection: list, algorithmId: str = 'quicksort') -> None:
-    '''Call a determined method by the algorithm identifier passed as argument.'''
+ALGORITHMS_SORTING_CHOICES: list = [
+    "selectsort",
+    "insertsort",
+    "mergesort",
+    "quicksort",
+    "heapsort",
+]
 
-    if algorithmId == 'selectsort':
+def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
+    '''
+        Call a determined method by the algorithm identifier passed as argument 
+        and sort the collection passed by reference.
+    '''
+
+    if algorithm_identifier == 'selectsort':
         selectsort(collection)
-    elif algorithmId == 'insertsort':
+    elif algorithm_identifier == 'insertsort':
         insertsort(collection)
-    elif algorithmId == 'mergesort':
-        raise NotImplementedError()
-    elif algorithmId == 'quicksort':
-        raise NotImplementedError()
-    elif algorithmId == 'heapsort':
-        raise NotImplementedError()
-    elif algorithmId == 'introsort':
-        raise NotImplementedError()
-    elif algorithmId == 'timsort':
-        raise NotImplementedError()
-    elif algorithmId == 'smoothsort':
-        raise NotImplementedError()
-    elif algorithmId == 'patiencesort':
-        raise NotImplementedError()
+    elif algorithm_identifier == 'mergesort':
+        raise NotImplementedError("Mergesort is not implemented yet. :(")
+    elif algorithm_identifier == 'quicksort':
+        raise NotImplementedError("Quicksort is not implemented yet. :/")
+    elif algorithm_identifier == 'heapsort':
+        raise NotImplementedError("Heapsort is not implemented yet. :(")
+    elif algorithm_identifier == 'introsort':
+        raise NotImplementedError("Introsort is not implemented yet. :/")
+    elif algorithm_identifier == 'timsort':
+        raise NotImplementedError("Timesort is not implemented yet. :(")
+    elif algorithm_identifier == 'smoothsort':
+        raise NotImplementedError("Smoothsort is not implemented yet. :/")
+    elif algorithm_identifier == 'patiencesort':
+        raise NotImplementedError("Patiencesort is not implemented yet. :(")
     else:
-        raise NotImplementedError()
+        raise NotImplementedError("Quicksort is not implemented yet. :/")
 
 def selectsort(collection: list) -> None:
     '''O(n²) complexity sorting algorithm.'''
