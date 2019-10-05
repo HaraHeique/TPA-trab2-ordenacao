@@ -13,6 +13,10 @@ from argparse import ArgumentParser
 _INPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/input/"
 _OUTPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/output/"
 
+# Assim que o módulo é instanciado cria os diretórios de input e output de arquivos caso não existam
+os.makedirs(_INPUT_FILES_PATH, exist_ok=True)
+os.makedirs(_OUTPUT_FILES_PATH, exist_ok=True)
+
 def CLI_definition(algorithm_choices: List[str]) -> object:
     '''
         Make the CLI definitions to start the application with correct 
@@ -121,7 +125,7 @@ def show_people(people: List[Person]):
 ##################################### UNIT LIB TEST #####################################
 def execute_test():
     lstPerson: List[Person] = readCSV("data_10e0.csv")
-    print(lstPerson.__len__)
+    print(lstPerson.__len__())
 
 def execute_test_writeCSV():
     import sortCollection
@@ -131,5 +135,6 @@ def execute_test_writeCSV():
 
 # Para testes unitários
 if __name__ == '__main__':
-    execute_test()
-    execute_test_writeCSV()
+    pass
+    #execute_test()
+    #execute_test_writeCSV()
