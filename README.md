@@ -8,9 +8,7 @@ O trabalho em questão é da disciplina de *TPA (Técnicas de Programação Avan
 - **Ferramentas de suporte**: Nenhuma (por enquanto)
 - **Ambiente de desenvolvimento**: Visual Studio Code (versão 1.35.1+) e PyCharm Community (versão 2018.3+)
 
-A ordenação é um dos problemas algorı́tmicos mais fundamentais da ciência da com-
-putação. Já foi afirmado que até 25% de todos os ciclos de CPU são usados para or-
-denação, o que fornece um grande incentivo para estudos adicionais e otimização sobre
+A ordenação é um dos problemas algorı́tmicos mais fundamentais da ciência da computação. Já foi afirmado que até 25% de todos os ciclos de CPU são usados para ordenação, o que fornece um grande incentivo para estudos adicionais e otimização sobre
 ordenação. Dado isso o trabalho consiste na implementação de algoritmos de ordenação, assim como análises de suas perfomances.
 
 No escopo do trabalho é necessário implementar sete dos nove algoritmos de ordenação propostos, os quais escolhidos estão em negrito abaixo:
