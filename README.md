@@ -22,3 +22,5 @@ No escopo do trabalho é necessário implementar sete dos nove algoritmos de ord
 - Smoothsort
 - Patience sorting
 
+### Informações adicionais
+Todo o código fonte está hospedado no [GitHub](https://github.com/HaraHeique/TPA-trab2-ordenacao).
