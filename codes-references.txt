@@ -1,0 +1,8 @@
+- Meus códigos antigos(Harã) de ordenação e leitura de arquivos
+
+- Leitura de arquivos csv
+https://pythonprogramming.net/reading-csv-files-python-3/
+
+- Escrita de arquivos csv
+https://www.programiz.com/python-programming/working-csv-files
+
