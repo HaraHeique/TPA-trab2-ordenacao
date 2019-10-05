@@ -13,23 +13,14 @@ putação. Já foi afirmado que até 25% de todos os ciclos de CPU são usados p
 denação, o que fornece um grande incentivo para estudos adicionais e otimização sobre
 ordenação. Dado isso o trabalho consiste na implementação de algoritmos de ordenação, assim como análises de suas perfomances.
 
-Implementação de sete dos nove algoritmos de ordenação. Os quais são:
+No escopo do trabalho é necessário implementar sete dos nove algoritmos de ordenação propostos, os quais os implementados estão em negrito abaixo:
 - **Insertion sort**
 - **Selection sort**
 - **Merge Sort**
 - **Quicksort**
 - **Heapsort**
-- **Introsort**
-- **Timsort**
-- **Smoothsort**
-- **Patience sorting**
-
-Os algoritmos escolhidos para implementação são:
-- **Insertion sort**
-- **Selection sort**
-- **Merge Sort**
-- **Quicksort**
-- **Heapsort**
-- **À escolher**
-- **À escolher**
+- Introsort
+- Timsort
+- Smoothsort
+- Patience sorting
 
