@@ -6,15 +6,16 @@
 
 import os, sys, csv, datetime
 from models.Person import Person
+from typing import List
 
 _INPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/input/"
 _OUTPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/output/"
 
-def readCSV(inputFileName: str) -> list:
+def readCSV(inputFileName: str) -> List[Person]:
     '''Read the content inside the filename passed as argument and transform to the Person objects.'''
 
     try:
-        lstPerson: list = []
+        lstPerson: List[Person] = []
         with open(_INPUT_FILES_PATH + inputFileName, 'r') as csvfile:
             dataCSV = csv.reader(csvfile, delimiter=',')
 
@@ -43,7 +44,7 @@ def readCSV(inputFileName: str) -> list:
     else:
         return lstPerson
 
-def writeCSV(lstPerson: list, outputFileName: str) -> None:
+def writeCSV(lstPerson: List[Person], outputFileName: str) -> None:
     '''Write the content in a CSV file for Person model.'''
 
     try:
@@ -68,7 +69,7 @@ def writeCSV(lstPerson: list, outputFileName: str) -> None:
         print(err)
         sys.exit(1)
 
-def show_people(people: list):
+def show_people(people: List[Person]):
     for p in people:
         print(p.toString())
 

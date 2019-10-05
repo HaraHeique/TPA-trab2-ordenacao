@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import argparse, os, sys, enum, handlerPerson, sortCollection as sort
+import argparse, os, sys, handlerPerson, sortCollection as sort
 from models.Person import Person
 from models.ExecutionType import ExecutionType
+from typing import List
 
 # OBS.: Pegando os argumentos do terminal sem o argparse
 def main(args: list):
     inputFileName: str = args[1]
-    lstPerson: list = handlerPerson.readCSV(inputFileName)
+    lstPerson: List[Person] = handlerPerson.readCSV(inputFileName)
 
-def main_without_args(lstFileNames: list):
+def main_without_args(lstFileNames: List[str]):
     for fileName in lstFileNames:
         inputFileName: str = fileName
-        lstPerson: list = handlerPerson.readCSV(inputFileName)
+        lstPerson: List[Person] = handlerPerson.readCSV(inputFileName)
         sort.insertsort(lstPerson)
         handlerPerson.show_people(lstPerson)
 

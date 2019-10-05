@@ -16,21 +16,21 @@ class Person:
         self._weight: int = weight
 
     @property
-    def id(self):
+    def id(self) -> str:
         return self._uid
 
     @property
-    def email(self):
+    def email(self) -> str:
         return self._email
 
-    def compareTo(self, person):
+    def compareTo(self, person) -> bool:
         '''Returns True if the self object(the caller) is less than the Person object passed as argument.
         Otherwise returns False'''
         if (self._uid < person._uid):
             return True
         return False
 
-    def toString(self):
+    def toString(self) -> str:
         '''A string representation to Person model'''
         return "UID: {0}\t Email: {1}\t Gender: {2}".format(self._uid, self._email, self._gender)
 
