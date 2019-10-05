@@ -23,7 +23,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'insertsort':
         insertsort(collection)
     elif algorithm_identifier == 'mergesort':
-        raise NotImplementedError("Mergesort is not implemented yet. :(")
+        mergesort(collection)
     elif algorithm_identifier == 'quicksort':
         raise NotImplementedError("Quicksort is not implemented yet. :/")
     elif algorithm_identifier == 'heapsort':
@@ -31,7 +31,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'introsort':
         raise NotImplementedError("Introsort is not implemented yet. :/")
     elif algorithm_identifier == 'timsort':
-        raise NotImplementedError("Timesort is not implemented yet. :(")
+        raise NotImplementedError("Timsort is not implemented yet. :(")
     elif algorithm_identifier == 'smoothsort':
         raise NotImplementedError("Smoothsort is not implemented yet. :/")
     elif algorithm_identifier == 'patiencesort':
@@ -72,6 +72,39 @@ def insertsort(collection: list) -> None:
     		aux = collection[i]
     		del collection[i]
     		collection.insert(k, aux)
+
+def mergesort(collection: list) -> None:
+    '''O(nlogn) complexity sorting algorithm.'''
+
+    collection_size: int = collection.__len__()
+
+    if (collection_size > 1):
+        half: int = collection_size // 2
+        
+        lst_aux_left: list = collection[:half]
+        lst_aux_right: list = collection[half:]
+
+        mergesort(lst_aux_left)
+        mergesort(lst_aux_right)
+
+        i = j = k = 0
+
+        while (i < lst_aux_left.__len__()) and (j < lst_aux_right.__len__()):
+            if(lst_aux_left[i].compareTo(lst_aux_right[j])):
+                collection[k] = lst_aux_left[i]
+                i += 1
+            else:
+                collection[k] = lst_aux_right[j]
+                j += 1
+            k += 1
+
+        for l in range(i, lst_aux_left.__len__()):
+            collection[k] = lst_aux_left[l]
+            k += 1
+
+        for r in range(j, lst_aux_right.__len__()):
+            collection[k] = lst_aux_right[r]
+            k += 1
 
 
 ##################################### UNIT LIB TEST #####################################

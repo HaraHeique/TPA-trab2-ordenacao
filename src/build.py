@@ -31,7 +31,7 @@ def main():
 def main_without_args(lst_filenames: List[str]):
     for filename in lst_filenames:
         lstPerson: List[Person] = handlerPerson.readCSV(filename)
-        sort.insertsort(lstPerson)
+        sort.mergesort(lstPerson)
         handlerPerson.show_people(lstPerson)
 
 # TODO Script de execução automática dos testes de análise
@@ -52,6 +52,6 @@ def choose_execution(execution_type: ExecutionType):
         raise Exception("Invalid execution type.")
 
 if __name__ == '__main__':
-    sys.tracebacklimit = 0
-    choose_execution(ExecutionType.MAIN)
+    sys.tracebacklimit = 1
+    choose_execution(ExecutionType.MAIN_WITHOUT_ARGS)
     
