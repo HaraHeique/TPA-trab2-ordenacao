@@ -6,3 +6,15 @@ https://pythonprogramming.net/reading-csv-files-python-3/
 - Escrita de arquivos csv
 https://www.programiz.com/python-programming/working-csv-files
 
+-SelectionSort
+https://pt.wikipedia.org/wiki/Selection_sort
+Codigos anteriores (prog 2 e estrutura de dados)
+
+-InsertionSort
+https://pt.wikipedia.org/wiki/Insertion_sort
+Codigos anteriores (prog 2 e estrutura de dados)
+
+- MergeSort
+https://pt.wikipedia.org/wiki/Merge_sort
+Codigos anteriores (prog 2 e estrutura de dados)
+
