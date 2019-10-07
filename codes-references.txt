@@ -18,3 +18,5 @@ Codigos anteriores (prog 2 e estrutura de dados)
 https://pt.wikipedia.org/wiki/Merge_sort
 Codigos anteriores (prog 2 e estrutura de dados)
 
+- TimeOut do algoritmo de ordenação
+Conversado com colega de classe chamado Joel, o qual deu dica de como parar o algoritmo após a execução do tempo limite

@@ -24,8 +24,8 @@ def CLI_definition(algorithm_choices: List[str]) -> object:
     '''
 
     cli_parser: ArgumentParser = ArgumentParser()
-    cli_parser.add_argument("input", type=str, help="Input: filename.csv")
-    cli_parser.add_argument("output", type=str, help='Output: filename.csv')
+    cli_parser.add_argument("--input", type=str, help="Input: filename.csv", required=True)
+    cli_parser.add_argument("--output", type=str, help='Output: filename.csv', required=True)
     cli_parser.add_argument("-a", "--algorithm", type=str, 
                             choices=algorithm_choices, 
                             help="Choose the algorithm you would like to run. Default is quicksort")

@@ -7,7 +7,7 @@ from typing import List
 
 def main():
     # Definição dos argumentos passados no CLI.
-    args = handler_person.CLI_definition(sort.ALGORITHMS_SORTING_CHOICES)
+    args = handler_person.CLI_definition(list(sort.ALGORITHMS_SORTING_CHOICES.keys()))
 
     # Pega os nome do arquivo de entrada e saída. Caso estejam errados é lançado uma exceção
     input_filename: str = handler_person.check_filename(args.input)

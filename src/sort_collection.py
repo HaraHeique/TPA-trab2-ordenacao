@@ -4,13 +4,13 @@
     A module responsible for sorting collections with many diferents types of algorithms.
 '''
 
-ALGORITHMS_SORTING_CHOICES: list = [
-    "selectsort",
-    "insertsort",
-    "mergesort",
-    "quicksort",
-    "heapsort",
-]
+ALGORITHMS_SORTING_CHOICES: dict = {
+    "selectsort": "Selection Sort",
+    "insertsort": "Insertion Sort",
+    "mergesort": "Merge Sort",
+    "quicksort": "Quicksort",
+    "heapsort": "Heapsort"
+}
 
 def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     '''
@@ -87,8 +87,6 @@ def mergesort(collection: list) -> None:
         mergesort(lst_aux_left)
         mergesort(lst_aux_right)
         __merge(collection, lst_aux_left,lst_aux_right)
-
-        
 
 def __merge(collection: list, lst_aux_left: list, lst_aux_right: list):
     i = j = k = 0
