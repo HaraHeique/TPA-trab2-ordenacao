@@ -23,7 +23,7 @@ No escopo do trabalho é necessário implementar sete dos nove algoritmos de ord
 - Patience sorting
 
 ### Como executar?
-Para buildar/executar o app no ambiente Linux basta abrir o CLI(Command Line Interface) no diretório __/src__ e digitar o seguinte comando:
+Para buildar/executar o app no ambiente Linux, onde a linguagem Python geralmente já vem instalado nativamente, basta abrir o CLI(Command Line Interface) no diretório __/src__ e digitar o seguinte comando:
 
     $ python3 build.py arquivo_entrada.csv arquivo_saida.csv --algorithm identificador_algoritmo
     Ou
