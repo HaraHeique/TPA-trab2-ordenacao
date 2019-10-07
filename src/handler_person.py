@@ -122,15 +122,17 @@ def show_people(people: List[Person]):
     for p in people:
         print(p.toString())
 
+
+
 ##################################### UNIT LIB TEST #####################################
 def execute_test():
     lstPerson: List[Person] = readCSV("data_10e0.csv")
     print(lstPerson.__len__())
 
 def execute_test_writeCSV():
-    import sortCollection
+    import sort_collection
     lstPerson: list = readCSV("data_10e0.csv")
-    sortCollection.insertsort(lstPerson)
+    sort_collection.insertsort(lstPerson)
     writeCSV(lstPerson, "data_10e0.csv")
 
 # Para testes unitários
