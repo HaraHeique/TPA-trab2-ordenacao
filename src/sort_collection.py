@@ -25,7 +25,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'mergesort':
         mergesort(collection)
     elif algorithm_identifier == 'quicksort':
-        raise NotImplementedError("Quicksort is not implemented yet. :/")
+        quicksort(collection)
     elif algorithm_identifier == 'heapsort':
         raise NotImplementedError("Heapsort is not implemented yet. :(")
     elif algorithm_identifier == 'introsort':
@@ -107,6 +107,29 @@ def __merge(collection: list, lst_aux_left: list, lst_aux_right: list):
     for r in range(j, lst_aux_right.__len__()):
         collection[k] = lst_aux_right[r]
         k += 1
+
+def quicksort(collection: list) -> None:
+    def _quicksort(collection: list, left: int, right: int) -> None:
+        if (left < right):
+            partitionI: int = partition(collection, left, right)
+            _quicksort(collection, left, partitionI - 1)
+            _quicksort(collection, partitionI + 1, right)
+
+    return _quicksort(collection, 0, len(collection) - 1)
+
+def partition(collection: list, left: int, right: int) -> int:
+    # swap element from index i to index j
+    def _swap(i: int, j: int) -> None:
+        collection[i], collection[j] = collection[j], collection[i]
+
+    pivot = collection[right]
+    smallIndex: int = left - 1
+    for i in range(left, right):
+        if (collection[i] < pivot):
+            smallIndex += 1
+            _swap(smallIndex, i)
+    _swap(smallIndex + 1, right)
+    return smallIndex + 1
 
 
 ##################################### UNIT LIB TEST #####################################
