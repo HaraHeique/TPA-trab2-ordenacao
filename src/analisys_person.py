@@ -76,7 +76,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
     ## CRIAR UM ARQUIVO FINAL COM TODOS OS ALGORITMOS JUNTOS COM SEUS RESPECTIVOS
     ## TEMPOS MÉDIO DE EXECUÇÃO POR NÚMERO DE REGISTROS
-    __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution)
+    __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution, dic_sorting_choices)
 
     print("%sANALISYS FINISHED%s" %(hifens, hifens))
 
@@ -163,7 +163,7 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
 
     return average_time
 
-def __register_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, float]]):
+def __register_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, float]]) -> None:
     for algorithm_key in dic_register_time_execution.keys():
         dic_algorithm_executions: Dict[int, float] = dic_register_time_execution[algorithm_key]
 
@@ -186,14 +186,46 @@ def __register_average_times_per_num_executions(dic_register_time_execution: Dic
         # Escreve o arquivo de saída
         __writeCSV_analisys_person(dataCSV, os.path.join(directory, filename))
 
-def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, float]]):
-    pass
+def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, float]], 
+                                                               dic_sorting_choices: Dict[str, str]) -> None:
+    
+    if not dic_register_time_execution:
+        return
+    
+    # Primeira linha contém as informações de número de registro em ordem crescente
+    lst_keys_algorithms: List[dict] = list(dic_register_time_execution.keys())
+    lst_num_records: List[int] = list(dic_register_time_execution[lst_keys_algorithms[0]].keys())
+    lst_num_records.sort()
+
+    dataCSV: list = []
+
+    # Monta os dados para cada algoritmo em cada linha do dataCSV
+    for algorithm_key in dic_register_time_execution.keys():
+        data_row: List[object] = []
+
+        # Adicionando os valores de média
+        for num_records in lst_num_records:
+            data_row.append(dic_register_time_execution[algorithm_key][num_records])
+
+        # Adicionando a qual algoritmo corresponde esses valores de média
+        data_row.insert(0, dic_sorting_choices[algorithm_key])
+        dataCSV.append(data_row)
+
+    # Monta a header
+    header: list = lst_num_records
+    header.insert(0, "")
+    dataCSV.insert(0, header)
+
+    filename: str = "analisys_all_algorithms_average{0}".format(__EXTENSION_FILES)
+
+    # Escreve o arquivo de saída
+    __writeCSV_analisys_person(dataCSV, os.path.join(__OUTPUT_ANALYZE_FILES_PATH, filename))
 
 ##################################### UNIT LIB TEST #####################################
 def execute_test():
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Database"
     absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Source_Code/src/files/input"
-    number_of_executions = 10
+    number_of_executions = 1
     analyze(absolute_path, number_of_executions)
 
 if __name__ == '__main__':
