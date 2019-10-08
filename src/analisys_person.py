@@ -21,6 +21,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
     '''
 
     hifens: str = "-" * 10
+    print("NUMBER OF EXECUTIONS BY ALGORITHM IS: %d\n" %(times_of_execution))
     print("%sSTARTING ANALISYS%s" %(hifens, hifens))
     
     dic_sorting_choices: Dict[str, str] = sort.ALGORITHMS_SORTING_CHOICES
@@ -192,7 +193,7 @@ def __register_all_algorithms_average_times_per_num_executions(dic_register_time
 def execute_test():
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Database"
     absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Source_Code/src/files/input"
-    number_of_executions = 3
+    number_of_executions = 10
     analyze(absolute_path, number_of_executions)
 
 if __name__ == '__main__':
