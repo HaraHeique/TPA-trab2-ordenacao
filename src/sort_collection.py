@@ -9,7 +9,9 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "insertsort": "Insertion Sort",
     "mergesort": "Merge Sort",
     #"quicksort": "Quicksort",
-    #"heapsort": "Heapsort"
+    #"heapsort": "Heapsort",
+    #"introsort": "Introsort",
+    #"timsort": "Timsort",
 }
 
 def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
@@ -37,7 +39,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'patiencesort':
         raise NotImplementedError("Patiencesort is not implemented yet. :(")
     else:
-        raise NotImplementedError("Quicksort is not implemented yet. :/")
+        quicksort(collection)
 
 def selectsort(collection: list) -> None:
     '''O(n²) complexity sorting algorithm.'''
@@ -64,14 +66,15 @@ def insertsort(collection: list) -> None:
     collection_size: int = collection.__len__()
 
     for i in range(1, collection_size):
-    	k: int = 0
-    	while (collection[k].compareTo(collection[i]) and k < collection_size-1):
-    		k += 1
+        k: int = i-1
+        aux: object = collection[i]
 
-    	if (collection[i].compareTo(collection[k])):
-    		aux = collection[i]
-    		del collection[i]
-    		collection.insert(k, aux)
+        while (k >= 0 and aux.compareTo(collection[k])):
+            collection[k+1] = collection[k]
+            k -= 1
+
+        if (k+1 != i):
+            collection[k+1] = aux
 
 def mergesort(collection: list) -> None:
     '''O(nlogn) complexity sorting algorithm.'''
@@ -129,7 +132,14 @@ def partition(collection: list, left: int, right: int) -> int:
             smallIndex += 1
             _swap(smallIndex, i)
     _swap(smallIndex + 1, right)
+
     return smallIndex + 1
+
+def isSorted(collection: list, ascending: bool = True) -> bool:
+    if ascending:
+        return all(collection[i].compareTo(collection[i+1]) for i in range(len(collection)-1))
+    else:
+        return all(collection[i+1].compareTo(collection[i]) for i in range(len(collection)-1))
 
 
 ##################################### UNIT LIB TEST #####################################
