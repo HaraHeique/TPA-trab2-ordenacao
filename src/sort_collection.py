@@ -8,8 +8,8 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "selectsort": "Selection Sort",
     "insertsort": "Insertion Sort",
     "mergesort": "Merge Sort",
-    "quicksort": "Quicksort",
-    "heapsort": "Heapsort"
+    #"quicksort": "Quicksort",
+    #"heapsort": "Heapsort"
 }
 
 def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:

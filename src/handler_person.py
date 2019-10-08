@@ -10,8 +10,8 @@ from models.Person import Person
 from typing import List
 from argparse import ArgumentParser
 
-_INPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/input/"
-_OUTPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/output/"
+_INPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/input"
+_OUTPUT_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/output"
 
 # Assim que o módulo é instanciado cria os diretórios de input e output de arquivos caso não existam
 os.makedirs(_INPUT_FILES_PATH, exist_ok=True)
@@ -40,7 +40,7 @@ def readCSV(input_filename: str) -> List[Person]:
 
     try:
         lstPerson: List[Person] = []
-        with open(_INPUT_FILES_PATH + input_filename, 'r') as csvfile:
+        with open(os.path.join(_INPUT_FILES_PATH, input_filename), 'r') as csvfile:
             dataCSV = csv.reader(csvfile, delimiter=',')
 
             # Ignora a primeira linha do arquivo, pois é o header
@@ -83,7 +83,7 @@ def writeCSV(lst_person: List[Person], output_filename: str) -> None:
                 p._height,
                 p._weight
             ])
-        with open(_OUTPUT_FILES_PATH + output_filename, 'w') as csvFile:
+        with open(os.path.join(_OUTPUT_FILES_PATH, output_filename), 'w') as csvFile:
             writer = csv.writer(csvFile)
             writer.writerows(dataCSV)
     except IOError as err:

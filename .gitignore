@@ -8,3 +8,4 @@ __pycache__/
 .idea
 .sonarlint
 /src/files/output/*
+/src/files/analyze/*
