@@ -44,31 +44,31 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
         if (QUICKSORT_KEY in dic_sorting_choices):
             print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[QUICKSORT_KEY].upper()))
 
-            average_time_execution: float = __register_average_time_execution(lst_person, QUICKSORT_KEY, times_of_execution)
+            dic_time_execution: Dict[str, float] = __register_average_time_execution(lst_person, QUICKSORT_KEY, times_of_execution)
 
             if QUICKSORT_KEY in dic_register_time_execution:
-                dic_register_time_execution[QUICKSORT_KEY][len(lst_person)] = average_time_execution
+                dic_register_time_execution[QUICKSORT_KEY][len(lst_person)] = dic_time_execution
             else:
-                dic_register_time_execution[QUICKSORT_KEY] = { len(lst_person): average_time_execution }
+                dic_register_time_execution[QUICKSORT_KEY] = { len(lst_person): dic_time_execution }
 
             lst_sorting_choices.remove(QUICKSORT_KEY)
-            time_out = 20 * average_time_execution
+            time_out = 20 * dic_time_execution["average"]
 
-            print("Average time result: {0}ms".format(average_time_execution))
+            print("Average time result: {0}ms".format(dic_time_execution["average"]))
             print(hifens*10)
 
         # Faz a análise para o resto dos algoritmos removendo o quicksort, pois já foi feito
         for algorithm_key in lst_sorting_choices:
             print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[algorithm_key].upper()))
 
-            average_time_execution: float = __register_average_time_execution(lst_person, algorithm_key, times_of_execution)
+            dic_time_execution: float = __register_average_time_execution(lst_person, algorithm_key, times_of_execution)
 
             if algorithm_key in dic_register_time_execution:
-                dic_register_time_execution[algorithm_key][len(lst_person)] = average_time_execution
+                dic_register_time_execution[algorithm_key][len(lst_person)] = dic_time_execution
             else:
-                dic_register_time_execution[algorithm_key] = { len(lst_person): average_time_execution }
+                dic_register_time_execution[algorithm_key] = { len(lst_person): dic_time_execution }
 
-            print("Average time result: {0}ms".format(average_time_execution))
+            print("Average time result: {0}ms".format(dic_time_execution["average"]))
             print(hifens*10)
     
     ## CRIAR ARQUIVOS COM A MÉDIA DE EXECUÇÃO FINAL E SUA QUANTIDADE DE REGISTROS ##
@@ -135,16 +135,23 @@ def __calculate_time_of_sort_algorithm(lst_person: List[Person], algorithm_key: 
 
     return finish_time - start_time
 
-def __register_average_time_execution(lst_person: List[Person], algorith_key: str, times_of_execution: int) -> float:
+def __register_average_time_execution(lst_person: List[Person], algorith_key: str, times_of_execution: int) -> Dict[str, float]:
     # Realiza os cálculos de média
     dataCSV_execution_times: List[object] = []
-    average_sum: float = 0.0
+    lst_time_execution: List[float] = []
+    
     for execution in range(1, times_of_execution + 1):
         time_execution: float = __calculate_time_of_sort_algorithm(lst_person, algorith_key)
         dataCSV_execution_times.append([execution, time_execution])
-        average_sum += time_execution
+        lst_time_execution.append(time_execution)
 
-    average_time: float = average_sum / times_of_execution
+    average_time: float = sum(lst_time_execution) / times_of_execution
+
+    dic_result: Dict[str, float] = {
+        "average": average_time,
+        "max": max(lst_time_execution),
+        "min": min(lst_time_execution)
+    }
 
     # Cria os dados para serem escritos no arquivo .csv de saída
     header: list = ["Execution", "Average Time(ms)"]
@@ -161,22 +168,27 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
     # Chama a função genérica que escreve um arquivo
     __writeCSV_analisys_person(dataCSV, os.path.join(directory, filename))
 
-    return average_time
+    return dic_result
 
-def __register_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, float]]) -> None:
+def __register_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, object]]) -> None:
     for algorithm_key in dic_register_time_execution.keys():
-        dic_algorithm_executions: Dict[int, float] = dic_register_time_execution[algorithm_key]
+        dic_algorithm_executions: Dict[int, Dict[str, float]] = dic_register_time_execution[algorithm_key]
 
         # Pega as chaves que corresponde a número de registros e ordena de forma crescente
         lst_num_records: List[int] = list(dic_algorithm_executions.keys())
         lst_num_records.sort()
 
         # Setando os dados para o CSV
-        header: list = ["Total Records", "Average Time Execution(ms)"]
+        header: list = ["Total Records", "Average Time Execution(ms)", "Minimum Value(ms)", "Maximum Value(ms)"]
         dataCSV: list = [header]
 
         for num_records in lst_num_records:
-            dataCSV.append([num_records, dic_algorithm_executions[num_records]])
+            dataCSV.append([
+                num_records, 
+                dic_algorithm_executions[num_records]["average"], 
+                dic_algorithm_executions[num_records]["min"],
+                dic_algorithm_executions[num_records]["max"]
+            ])
         
         # Seta o nome do arquivo e diretório, onde caso não esteja criado ainda é criado
         filename: str = "{0}{1}".format(algorithm_key, __EXTENSION_FILES)
@@ -186,7 +198,7 @@ def __register_average_times_per_num_executions(dic_register_time_execution: Dic
         # Escreve o arquivo de saída
         __writeCSV_analisys_person(dataCSV, os.path.join(directory, filename))
 
-def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, float]], 
+def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, object]], 
                                                                dic_sorting_choices: Dict[str, str]) -> None:
     
     if not dic_register_time_execution:
@@ -205,7 +217,7 @@ def __register_all_algorithms_average_times_per_num_executions(dic_register_time
 
         # Adicionando os valores de média
         for num_records in lst_num_records:
-            data_row.append(dic_register_time_execution[algorithm_key][num_records])
+            data_row.append(dic_register_time_execution[algorithm_key][num_records]["average"])
 
         # Adicionando a qual algoritmo corresponde esses valores de média
         data_row.insert(0, dic_sorting_choices[algorithm_key])
@@ -226,7 +238,7 @@ def execute_test():
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Database"
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Source_Code/src/files/input"
     absolute_path: str =  os.path.dirname(os.path.abspath(__file__)) + "/files/input"
-    number_of_executions = 10
+    number_of_executions = 3
     analyze(absolute_path, number_of_executions)
 
 if __name__ == '__main__':
