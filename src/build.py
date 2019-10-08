@@ -32,7 +32,8 @@ def main_without_args(lst_filenames: List[str]):
     for filename in lst_filenames:
         lstPerson: List[Person] = handler_person.readCSV(filename)
         sort.mergesort(lstPerson)
-        handler_person.show_people(lstPerson)
+        print("Is sorted? %s" %(sort.isSorted(lstPerson)))
+        #handler_person.show_people(lstPerson)
 
 # TODO Script de execução automática dos testes de análise
 def run_analysis():
