@@ -120,20 +120,21 @@ def quicksort(collection: list) -> None:
 
     return _quicksort(collection, 0, len(collection) - 1)
 
-def partition(collection: list, left: int, right: int) -> int:
-    # swap element from index i to index j
-    def _swap(i: int, j: int) -> None:
-        collection[i], collection[j] = collection[j], collection[i]
+# elements swap by indexes
+def swap(collection: list, i: int, j: int) -> None:
+    collection[i], collection[j] = collection[j], collection[i]
 
+def partition(collection: list, left: int, right: int) -> int:
     pivot = collection[right]
     smallIndex: int = left - 1
     for i in range(left, right):
         if (collection[i] < pivot):
             smallIndex += 1
-            _swap(smallIndex, i)
-    _swap(smallIndex + 1, right)
+            swap(collection, smallIndex, i)
+    swap(collection, smallIndex + 1, right)
 
     return smallIndex + 1
+
 
 def isSorted(collection: list, ascending: bool = True) -> bool:
     if ascending:
