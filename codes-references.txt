@@ -24,6 +24,7 @@ Codigos anteriores (estrutura de dados)
 
 - Heapsort
 https://www.cc.gatech.edu/classes/cs3158_98_fall/heapsort.html
+http://wiki.icmc.usp.br/images/c/c6/Ordenacao2.pdf
 Codigos anteriores (estrutura de dados)
 
 - TimeOut do algoritmo de ordenação

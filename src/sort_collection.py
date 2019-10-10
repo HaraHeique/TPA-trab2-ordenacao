@@ -9,7 +9,7 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "insertsort": "Insertion Sort",
     "mergesort": "Merge Sort",
     "quicksort": "Quicksort",
-    #"heapsort": "Heapsort",
+    "heapsort": "Heapsort",
     #"introsort": "Introsort",
     #"timsort": "Timsort",
 }
@@ -29,7 +29,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'quicksort':
         quicksort(collection)
     elif algorithm_identifier == 'heapsort':
-        raise NotImplementedError("Heapsort is not implemented yet. :(")
+        heapsort(collection)
     elif algorithm_identifier == 'introsort':
         raise NotImplementedError("Introsort is not implemented yet. :/")
     elif algorithm_identifier == 'timsort':
@@ -134,6 +134,31 @@ def __partition(collection: list, left: int, right: int) -> int:
     __swap(collection, smallIndex + 1, right)
 
     return smallIndex + 1
+
+def heapify(collection: list, length: int, i: int) -> None:
+    left: int = 2 * i
+    right: int = 2 * i + 1 
+    largest: int = i
+
+    if (left < length) and (collection[left] > collection[largest]):
+        largest = left
+
+    if(right < length) and (collection[right] > collection[largest]):
+        largest = right
+
+    if(largest != i):
+        __swap(collection, i, largest)
+        heapify(collection, length, largest)
+
+def buildHeap(collection: list) -> None:
+    for i in range(math.floor(len(collection) / 2), -1, -1):
+        heapify(collection, len(collection), i)
+
+def heapsort(collection: list) -> None:
+    buildHeap(collection)
+    for i in range(len(collection) - 1, -1, -1):
+        __swap(collection, 0, i)
+        heapify(collection, i, 0)
 
 
 def isSorted(collection: list, ascending: bool = True) -> bool:
