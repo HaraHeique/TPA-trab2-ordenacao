@@ -4,12 +4,15 @@
     performs data analysis for the Person model
 '''
 
-import os, sys, csv, datetime, time, sort_collection as sort
+import os, sys, csv, datetime, time, math, sort_collection as sort
 from models.Person import Person
 from typing import List, Dict
+from multiprocessing import Process, Queue
 
 __OUTPUT_ANALYZE_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/analyze"
 __EXTENSION_FILES: str = ".csv"
+_TIME_OUT: float = 300 # Em segundos
+_queue_process: Queue = Queue()
 
 os.makedirs(__OUTPUT_ANALYZE_FILES_PATH, exist_ok=True)
 
@@ -38,7 +41,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
         lst_person: List[Person] = __readCSV_person(os.path.join(directory_path, filename))
 
         # Variável responsável por matar a execução do processo caso o tempo de execução ultrapasse o dele
-        time_out: float = 300 # Em segundos
+        #time_out: float = math.inf
 
         # Realiza a análise do QuickSort primeiramente, pois ele seta o timeout(20*time_quicksort)
         if (QUICKSORT_KEY in dic_sorting_choices):
@@ -52,7 +55,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
                 dic_register_time_execution[QUICKSORT_KEY] = { len(lst_person): dic_time_execution }
 
             lst_sorting_choices.remove(QUICKSORT_KEY)
-            time_out = 20 * dic_time_execution["average"]
+            #time_out = 20 * dic_time_execution["average"]
 
             print("Average time result: {0}ms".format(dic_time_execution["average"]))
             print(hifens*10)
@@ -128,12 +131,12 @@ def __writeCSV_analisys_person(dataCSV: List[object], path_file: str) -> None:
         print(err)
         sys.exit(1)
 
-def __calculate_time_of_sort_algorithm(lst_person: List[Person], algorithm_key: str) -> float:
+def __calculate_time_of_sort_algorithm(lst_person: List[Person], algorithm_key: str) -> None:
     start_time: float = time.process_time() * 1000
     sort.sort(lst_person, algorithm_key)
     finish_time: float = time.process_time() * 1000
 
-    return finish_time - start_time
+    _queue_process.put(finish_time - start_time)
 
 def __register_average_time_execution(lst_person: List[Person], algorith_key: str, times_of_execution: int) -> Dict[str, float]:
     # Realiza os cálculos de média
@@ -141,7 +144,8 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
     lst_time_execution: List[float] = []
     
     for execution in range(1, times_of_execution + 1):
-        time_execution: float = __calculate_time_of_sort_algorithm(lst_person, algorith_key)
+        __call_process_timeout(_TIME_OUT, __calculate_time_of_sort_algorithm, [lst_person, algorith_key])
+        time_execution: float = _queue_process.get_nowait() if not _queue_process.empty() else _TIME_OUT * 1000
         dataCSV_execution_times.append([execution, time_execution])
         lst_time_execution.append(time_execution)
 
@@ -232,6 +236,12 @@ def __register_all_algorithms_average_times_per_num_executions(dic_register_time
 
     # Escreve o arquivo de saída
     __writeCSV_analisys_person(dataCSV, os.path.join(__OUTPUT_ANALYZE_FILES_PATH, filename))
+
+def __call_process_timeout(timeout: float, target: object, args: list = []) -> None:
+    p = Process(target=target, args=args)
+    p.start()
+    p.join(timeout=timeout)
+    p.terminate()
 
 ##################################### UNIT LIB TEST #####################################
 def execute_test():
