@@ -141,10 +141,10 @@ def heapify(collection: list, length: int, i: int) -> None:
     right: int = 2 * i + 1 
     largest: int = i
 
-    if (left < length) and (collection[left] > collection[largest]):
+    if (left < length) and (collection[largest].compareTo(collection[left])):
         largest = left
 
-    if(right < length) and (collection[right] > collection[largest]):
+    if(right < length) and (collection[largest].compareTo(collection[right])):
         largest = right
 
     if(largest != i):
