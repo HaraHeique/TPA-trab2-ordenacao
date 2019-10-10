@@ -6,6 +6,7 @@ from models.ExecutionType import ExecutionType
 from typing import List
 
 def main():
+    print("Processing...")
     # Definição dos argumentos passados no CLI.
     args = handler_person.CLI_definition(list(sort.ALGORITHMS_SORTING_CHOICES.keys()))
 
@@ -25,13 +26,14 @@ def main():
     handler_person.writeCSV(lst_person, output_filename)
 
     # Reporta o tempo final de execução do processo de ordenação
+    clear_screen()
     chosen_algorithm: str = args.algorithm if (args.algorithm != None) else 'quicksort'
     handler_person.report_time(chosen_algorithm, lst_person.__len__(), start_time, finish_time)
 
 def main_without_args(lst_filenames: List[str]):
     for filename in lst_filenames:
         lstPerson: List[Person] = handler_person.readCSV(filename)
-        sort.mergesort(lstPerson)
+        sort.quicksort(lstPerson)
         print("Is sorted? %s" %(sort.isSorted(lstPerson)))
         #handler_person.show_people(lstPerson)
 
@@ -48,9 +50,15 @@ def choose_execution(execution_type: ExecutionType):
         ]
         main_without_args(lstFileNames)
     elif (execution_type == ExecutionType.RUN_ANALYSIS):
-        pass
+        run_analysis()
     else:
         raise Exception("Invalid execution type.")
+
+def clear_screen():
+    try:
+        os.system('cls' if os.name=='nt' else 'clear')
+    except Exception:
+        pass
 
 if __name__ == '__main__':
     sys.tracebacklimit = 1

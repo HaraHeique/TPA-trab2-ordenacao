@@ -112,26 +112,26 @@ def __merge(collection: list, lst_aux_left: list, lst_aux_right: list):
         k += 1
 
 def quicksort(collection: list) -> None:
-    def _quicksort(collection: list, left: int, right: int) -> None:
-        if (left < right):
-            partitionI: int = partition(collection, left, right)
-            _quicksort(collection, left, partitionI - 1)
-            _quicksort(collection, partitionI + 1, right)
+    __quicksort(collection, 0, len(collection) - 1)
 
-    return _quicksort(collection, 0, len(collection) - 1)
+def __quicksort(collection: list, left: int, right: int) -> None:
+    if (left < right):
+        partitionI: int = __partition(collection, left, right)
+        __quicksort(collection, left, partitionI - 1)
+        __quicksort(collection, partitionI + 1, right)
 
 # elements swap by indexes
-def swap(collection: list, i: int, j: int) -> None:
+def __swap(collection: list, i: int, j: int) -> None:
     collection[i], collection[j] = collection[j], collection[i]
 
-def partition(collection: list, left: int, right: int) -> int:
+def __partition(collection: list, left: int, right: int) -> int:
     pivot = collection[right]
     smallIndex: int = left - 1
     for i in range(left, right):
         if (collection[i].compareTo(pivot)):
             smallIndex += 1
-            swap(collection, smallIndex, i)
-    swap(collection, smallIndex + 1, right)
+            __swap(collection, smallIndex, i)
+    __swap(collection, smallIndex + 1, right)
 
     return smallIndex + 1
 

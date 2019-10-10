@@ -30,7 +30,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
     dic_sorting_choices: Dict[str, str] = sort.ALGORITHMS_SORTING_CHOICES
     lst_sorting_choices: List[str] = list(dic_sorting_choices.keys())
     QUICKSORT_KEY = "quicksort"
-    filenames: List[str] = __get_all_filenames_from_directory(directory_path)
+    filenames: List[str] = __get_all_filenames_from_directory(directory_path, True)
 
     # Registra os tempos médios de execução dos algoritmos de ordenação
     dic_register_time_execution: Dict[str, Dict[int, float]] = {}
@@ -54,7 +54,6 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
             else:
                 dic_register_time_execution[QUICKSORT_KEY] = { len(lst_person): dic_time_execution }
 
-            lst_sorting_choices.remove(QUICKSORT_KEY)
             #time_out = 20 * dic_time_execution["average"]
 
             print("Average time result: {0}ms".format(dic_time_execution["average"]))
@@ -62,6 +61,9 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
         # Faz a análise para o resto dos algoritmos removendo o quicksort, pois já foi feito
         for algorithm_key in lst_sorting_choices:
+            if algorithm_key == QUICKSORT_KEY:
+                continue
+
             print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[algorithm_key].upper()))
 
             dic_time_execution: float = __register_average_time_execution(lst_person, algorithm_key, times_of_execution)
@@ -85,8 +87,12 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
     return True
 
-def __get_all_filenames_from_directory(path: str) -> List[str]:
-    return [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+def __get_all_filenames_from_directory(path: str, orderble: bool = False) -> List[str]:
+    lst_filenames: List[str] = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))] 
+    if orderble:
+        lst_filenames.sort()
+        
+    return lst_filenames
 
 def __readCSV_person(path_file: str) -> List[Person]:
     try:
