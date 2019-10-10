@@ -254,7 +254,7 @@ def execute_test():
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Database"
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Source_Code/src/files/input"
     absolute_path: str =  os.path.dirname(os.path.abspath(__file__)) + "/files/input"
-    number_of_executions = 3
+    number_of_executions = 10
     analyze(absolute_path, number_of_executions)
 
 if __name__ == '__main__':
