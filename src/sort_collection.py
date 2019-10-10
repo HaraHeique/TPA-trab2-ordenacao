@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import math
 
 '''
     A module responsible for sorting collections with many diferents types of algorithms.
