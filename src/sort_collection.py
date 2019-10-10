@@ -8,7 +8,7 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "selectsort": "Selection Sort",
     "insertsort": "Insertion Sort",
     "mergesort": "Merge Sort",
-    #"quicksort": "Quicksort",
+    "quicksort": "Quicksort",
     #"heapsort": "Heapsort",
     #"introsort": "Introsort",
     #"timsort": "Timsort",
@@ -128,7 +128,7 @@ def partition(collection: list, left: int, right: int) -> int:
     pivot = collection[right]
     smallIndex: int = left - 1
     for i in range(left, right):
-        if (collection[i] < pivot):
+        if (collection[i].compareTo(pivot)):
             smallIndex += 1
             _swap(smallIndex, i)
     _swap(smallIndex + 1, right)
