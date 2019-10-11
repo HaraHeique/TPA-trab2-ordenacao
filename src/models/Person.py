@@ -24,8 +24,10 @@ class Person:
         return self._email
 
     def compareTo(self, person) -> bool:
-        '''Returns True if the self object(the caller) is less than the Person object passed as argument.
-        Otherwise returns False'''
+        '''
+            Returns True if the self object(the caller) is less than the Person object passed as argument.
+            Otherwise returns False
+        '''
         if (self._uid < person._uid):
             return True
         return False

@@ -188,21 +188,21 @@ def introsort(collection: list) -> None:
 
 ### TIM SORT ###
 def timsort(collection: list) -> None:
-    RUN = 32
-    lst: list = []
-    n: int = len(collection)
+    lst_particoes: list = []
+    size_collection: int = len(collection)
+    RUN = 32 if size_collection > 32 else size_collection
 
-    for i in range(0, n, RUN):
+    for i in range(0, size_collection, RUN):
         aux: list = collection[i:i+RUN]
         insertsort(aux)
-        lst += aux
-
+        lst_particoes += aux
+    
     size: int = RUN
-    while size < n:
-        for left in range(0, n, 2 * size):
+    while size <= size_collection:
+        for left in range(0, size_collection, 2 * size):
             middle: int = left + size - 1
-            right: int = min(left + 2 * size, n)
-            __merge(collection, lst[left:middle], lst[middle:right])
+            right: int = min(left + 2 * size, size_collection)
+            __merge(collection, lst_particoes[left:middle], lst_particoes[middle:right])
         size = 2 * size
 
 
