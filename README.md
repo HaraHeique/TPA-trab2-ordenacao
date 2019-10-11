@@ -49,7 +49,7 @@ Algoritmo|Identificador
 **Quicksort**|quicksort
 **Heapsort**|heapsort
 **Introsort**|introsort
-- **Timsort**|timsort
+**Timsort**|timsort
 
 </div>
 
