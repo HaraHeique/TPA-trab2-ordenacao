@@ -11,7 +11,7 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "mergesort": "Merge Sort",
     "quicksort": "Quicksort",
     "heapsort": "Heapsort",
-    # "introsort": "Introsort",
+    "introsort": "Introsort",
     # "timsort": "Timsort",
 }
 
@@ -33,7 +33,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'heapsort':
         heapsort(collection)
     elif algorithm_identifier == 'introsort':
-        raise NotImplementedError("Introsort is not implemented yet. :/")
+        introsort(collection)
     elif algorithm_identifier == 'timsort':
         raise NotImplementedError("Timsort is not implemented yet. :(")
     elif algorithm_identifier == 'smoothsort':
@@ -173,6 +173,21 @@ def heapsort(collection: list) -> None:
     for i in range(len(collection) - 1, -1, -1):
         __swap(collection, 0, i)
         __heapify(collection, i, 0)
+
+
+def introsort(collection: list) -> None:
+    n: int = len(collection)
+    depthLimit: int = math.log(n, 2)
+    pivot = n-1
+
+    if n < 2:
+        return
+    if pivot > depthLimit:
+        heapsort(collection)
+        return
+
+    introsort(collection[0:pivot], depthLimit - 1)
+    introsort(collection[pivot+1:n], depthLimit - 1)
 
 
 def isSorted(collection: list, ascending: bool = True) -> bool:

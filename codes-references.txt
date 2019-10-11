@@ -27,5 +27,10 @@ https://www.cc.gatech.edu/classes/cs3158_98_fall/heapsort.html
 http://wiki.icmc.usp.br/images/c/c6/Ordenacao2.pdf
 Codigos anteriores (estrutura de dados)
 
+- Introsort
+https://en.wikipedia.org/wiki/Introsort
+https://www.geeksforgeeks.org/introsort-or-introspective-sort
+https://pt.wikipedia.org/wiki/Intro_sort
+
 - TimeOut do algoritmo de ordenação
 Conversado com colega de classe chamado Joel, o qual deu dica de como parar o algoritmo após a execução do tempo limite
