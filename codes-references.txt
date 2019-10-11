@@ -32,5 +32,9 @@ https://en.wikipedia.org/wiki/Introsort
 https://www.geeksforgeeks.org/introsort-or-introspective-sort
 https://pt.wikipedia.org/wiki/Intro_sort
 
+- Timsort
+https://hackernoon.com/timsort-the-fastest-sorting-algorithm-youve-never-heard-of-36b28417f399
+https://pt.wikipedia.org/wiki/Timsort
+
 - TimeOut do algoritmo de ordenação
 Conversado com colega de classe chamado Joel, o qual deu dica de como parar o algoritmo após a execução do tempo limite

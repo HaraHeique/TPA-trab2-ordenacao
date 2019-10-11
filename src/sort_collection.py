@@ -12,7 +12,7 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "quicksort": "Quicksort",
     "heapsort": "Heapsort",
     "introsort": "Introsort",
-    # "timsort": "Timsort",
+    "timsort": "Timsort",
 }
 
 
@@ -35,7 +35,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     elif algorithm_identifier == 'introsort':
         introsort(collection)
     elif algorithm_identifier == 'timsort':
-        raise NotImplementedError("Timsort is not implemented yet. :(")
+        timsort(collection)
     elif algorithm_identifier == 'smoothsort':
         raise NotImplementedError("Smoothsort is not implemented yet. :/")
     elif algorithm_identifier == 'patiencesort':
@@ -188,6 +188,25 @@ def introsort(collection: list) -> None:
 
     introsort(collection[0:pivot], depthLimit - 1)
     introsort(collection[pivot+1:n], depthLimit - 1)
+
+
+def timsort(collection: list) -> None:
+    RUN = 32
+    __lst: list = []
+    n: int = len(collection)
+
+    for i in range(0, n, RUN):
+        aux = collection[i:i+RUN]
+        insertsort(aux)
+        __lst += aux
+
+    size = RUN
+    while size < n:
+        for left in range(0, n, 2 * size):
+            middle: int = left + size - 1
+            right: int = min(left + 2 * size, n)
+            __merge(collection, __lst[left:middle], __lst[middle:right])
+        size = 2 * size
 
 
 def isSorted(collection: list, ascending: bool = True) -> bool:
