@@ -11,7 +11,7 @@ from multiprocessing import Process, Queue
 
 __OUTPUT_ANALYZE_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/analyze"
 __EXTENSION_FILES: str = ".csv"
-_TIME_OUT: float = 300 # Em segundos
+_TIME_OUT: float
 _queue_process: Queue = Queue()
 
 os.makedirs(__OUTPUT_ANALYZE_FILES_PATH, exist_ok=True)
@@ -32,6 +32,13 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
     QUICKSORT_KEY = "quicksort"
     filenames: List[str] = __get_all_filenames_from_directory(directory_path, True)
 
+    ## SETANDO O TIME OUT ATRAVÉS DO MAIOR ARQUIVO ##
+    biggest_file_records: str = max(filenames, key=(lambda f: os.path.getsize(os.path.join(directory_path, f))))
+    print(biggest_file_records)
+    lst_person: List[Person] = __readCSV_person(os.path.join(directory_path, biggest_file_records))
+    times_execution: float = __calculate_time_sort_algorithm(lst_person, QUICKSORT_KEY)
+    _TIME_OUT = times_execution * 10
+
     # Registra os tempos médios de execução dos algoritmos de ordenação
     dic_register_time_execution: Dict[str, Dict[int, float]] = {}
 
@@ -40,29 +47,8 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
         # Coloca os objetos em cache para ser em uma lista de Person
         lst_person: List[Person] = __readCSV_person(os.path.join(directory_path, filename))
 
-        # Variável responsável por matar a execução do processo caso o tempo de execução ultrapasse o dele
-        #time_out: float = math.inf
-
-        # Realiza a análise do QuickSort primeiramente, pois ele seta o timeout(20*time_quicksort)
-        if (QUICKSORT_KEY in dic_sorting_choices):
-            print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[QUICKSORT_KEY].upper()))
-
-            dic_time_execution: Dict[str, float] = __register_average_time_execution(lst_person, QUICKSORT_KEY, times_of_execution)
-
-            if QUICKSORT_KEY in dic_register_time_execution:
-                dic_register_time_execution[QUICKSORT_KEY][len(lst_person)] = dic_time_execution
-            else:
-                dic_register_time_execution[QUICKSORT_KEY] = { len(lst_person): dic_time_execution }
-
-            #time_out = 20 * dic_time_execution["average"]
-
-            print("Average time result: {0}ms".format(dic_time_execution["average"]))
-            print(hifens*10)
-
         # Faz a análise para o resto dos algoritmos removendo o quicksort, pois já foi feito
         for algorithm_key in lst_sorting_choices:
-            if algorithm_key == QUICKSORT_KEY:
-                continue
 
             print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[algorithm_key].upper()))
 
@@ -93,6 +79,23 @@ def __get_all_filenames_from_directory(path: str, orderble: bool = False) -> Lis
         lst_filenames.sort()
         
     return lst_filenames
+
+def __count_records_file(filename: str):
+    try:
+        with open(filename, 'r') as csvfile:
+            reader = csv.reader(csvfile)
+            row_count: int = sum(1 for row in reader)
+    except FileNotFoundError as err:
+        print(err)
+        sys.exit(1)
+    except IOError as err:
+        print(err)
+        sys.exit(1)
+    except Exception as err:
+        print(err)
+        sys.exit(1)
+    else:
+        return row_count
 
 def __readCSV_person(path_file: str) -> List[Person]:
     try:
@@ -144,6 +147,13 @@ def __calculate_time_of_sort_algorithm(lst_person: List[Person], algorithm_key: 
 
     _queue_process.put(finish_time - start_time)
 
+def __calculate_time_sort_algorithm(lst_person: List[Person], algorithm_key: str) -> float:
+    start_time: float = time.process_time() * 1000
+    sort.sort(lst_person, algorithm_key)
+    finish_time: float = time.process_time() * 1000
+
+    return finish_time - start_time
+
 def __register_average_time_execution(lst_person: List[Person], algorith_key: str, times_of_execution: int) -> Dict[str, float]:
     # Realiza os cálculos de média
     dataCSV_execution_times: List[object] = []
@@ -151,7 +161,7 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
     
     for execution in range(1, times_of_execution + 1):
         __call_process_timeout(_TIME_OUT, __calculate_time_of_sort_algorithm, [lst_person, algorith_key])
-        time_execution: float = _queue_process.get_nowait() if not _queue_process.empty() else _TIME_OUT * 1000
+        time_execution: float = _queue_process.get_nowait() if not _queue_process.empty() else _TIME_OUT
         dataCSV_execution_times.append([execution, time_execution])
         lst_time_execution.append(time_execution)
 
@@ -254,7 +264,7 @@ def execute_test():
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Database"
     #absolute_path: str = "/media/heik/Arquivos Linux/Documentos/Learning Stuffs/Matérias/TPA/Trabalhos/Trabalho 2/Source_Code/src/files/input"
     absolute_path: str =  os.path.dirname(os.path.abspath(__file__)) + "/files/input"
-    number_of_executions = 10
+    number_of_executions = 1
     analyze(absolute_path, number_of_executions)
 
 if __name__ == '__main__':
