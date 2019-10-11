@@ -10,3 +10,4 @@ __pycache__/
 /src/files/output/*
 /src/files/analyze/*
 /src/files/input/data_[0-9]*e[3-9].csv
+.editorconfig

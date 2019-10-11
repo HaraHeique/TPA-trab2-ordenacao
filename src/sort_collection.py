@@ -173,7 +173,7 @@ def __buildHeap(collection: list) -> None:
 def introsort(collection: list) -> None:
     n: int = len(collection)
     depthLimit: int = math.log(n, 2)
-    pivot = n-1
+    pivot: int = n-1
 
     if n < 2:
         return
@@ -181,26 +181,28 @@ def introsort(collection: list) -> None:
         heapsort(collection)
         return
 
-    introsort(collection[0:pivot], depthLimit - 1)
-    introsort(collection[pivot+1:n], depthLimit - 1)
+    # introsort(collection[0:pivot], depthLimit - 1)
+    # introsort(collection[pivot+1:n], depthLimit - 1)
+    introsort(collection[0:pivot])
+    introsort(collection[pivot+1:n])
 
 ### TIM SORT ###
 def timsort(collection: list) -> None:
     RUN = 32
-    __lst: list = []
+    lst: list = []
     n: int = len(collection)
 
     for i in range(0, n, RUN):
-        aux = collection[i:i+RUN]
+        aux: list = collection[i:i+RUN]
         insertsort(aux)
-        __lst += aux
+        lst += aux
 
-    size = RUN
+    size: int = RUN
     while size < n:
         for left in range(0, n, 2 * size):
             middle: int = left + size - 1
             right: int = min(left + 2 * size, n)
-            __merge(collection, __lst[left:middle], __lst[middle:right])
+            __merge(collection, lst[left:middle], lst[middle:right])
         size = 2 * size
 
 
