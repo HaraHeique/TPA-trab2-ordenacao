@@ -11,13 +11,14 @@ ALGORITHMS_SORTING_CHOICES: dict = {
     "mergesort": "Merge Sort",
     "quicksort": "Quicksort",
     "heapsort": "Heapsort",
-    #"introsort": "Introsort",
-    #"timsort": "Timsort",
+    # "introsort": "Introsort",
+    # "timsort": "Timsort",
 }
+
 
 def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     '''
-        Call a determined method by the algorithm identifier passed as argument 
+        Call a determined method by the algorithm identifier passed as argument
         and sort the collection passed by reference.
     '''
 
@@ -42,6 +43,7 @@ def sort(collection: list, algorithm_identifier: str = 'quicksort') -> None:
     else:
         quicksort(collection)
 
+
 def selectsort(collection: list) -> None:
     '''O(n²) complexity sorting algorithm.'''
 
@@ -55,11 +57,12 @@ def selectsort(collection: list) -> None:
             if (collection[k].compareTo(collection[indiceMenor])):
                 indiceMenor = k
             k += 1
-        
+
         if (indiceMenor != i):
             aux = collection[i]
             collection[i] = collection[indiceMenor]
             collection[indiceMenor] = aux
+
 
 def insertsort(collection: list) -> None:
     '''O(n²) complexity sorting algorithm.'''
@@ -77,6 +80,7 @@ def insertsort(collection: list) -> None:
         if (k+1 != i):
             collection[k+1] = aux
 
+
 def mergesort(collection: list) -> None:
     '''O(nlogn) complexity sorting algorithm.'''
 
@@ -84,13 +88,14 @@ def mergesort(collection: list) -> None:
 
     if (collection_size > 1):
         half: int = collection_size // 2
-        
+
         lst_aux_left: list = collection[:half]
         lst_aux_right: list = collection[half:]
 
         mergesort(lst_aux_left)
         mergesort(lst_aux_right)
-        __merge(collection, lst_aux_left,lst_aux_right)
+        __merge(collection, lst_aux_left, lst_aux_right)
+
 
 def __merge(collection: list, lst_aux_left: list, lst_aux_right: list):
     i = j = k = 0
@@ -112,8 +117,10 @@ def __merge(collection: list, lst_aux_left: list, lst_aux_right: list):
         collection[k] = lst_aux_right[r]
         k += 1
 
+
 def quicksort(collection: list) -> None:
     __quicksort(collection, 0, len(collection) - 1)
+
 
 def __quicksort(collection: list, left: int, right: int) -> None:
     if (left < right):
@@ -122,8 +129,11 @@ def __quicksort(collection: list, left: int, right: int) -> None:
         __quicksort(collection, partitionI + 1, right)
 
 # elements swap by indexes
+
+
 def __swap(collection: list, i: int, j: int) -> None:
     collection[i], collection[j] = collection[j], collection[i]
+
 
 def __partition(collection: list, left: int, right: int) -> int:
     pivot = collection[right]
@@ -136,9 +146,10 @@ def __partition(collection: list, left: int, right: int) -> int:
 
     return smallIndex + 1
 
-def heapify(collection: list, length: int, i: int) -> None:
+
+def __heapify(collection: list, length: int, i: int) -> None:
     left: int = 2 * i
-    right: int = 2 * i + 1 
+    right: int = 2 * i + 1
     largest: int = i
 
     if (left < length) and (collection[largest].compareTo(collection[left])):
@@ -149,17 +160,19 @@ def heapify(collection: list, length: int, i: int) -> None:
 
     if(largest != i):
         __swap(collection, i, largest)
-        heapify(collection, length, largest)
+        __heapify(collection, length, largest)
 
-def buildHeap(collection: list) -> None:
+
+def __buildHeap(collection: list) -> None:
     for i in range(math.floor(len(collection) / 2), -1, -1):
-        heapify(collection, len(collection), i)
+        __heapify(collection, len(collection), i)
+
 
 def heapsort(collection: list) -> None:
-    buildHeap(collection)
+    __buildHeap(collection)
     for i in range(len(collection) - 1, -1, -1):
         __swap(collection, 0, i)
-        heapify(collection, i, 0)
+        __heapify(collection, i, 0)
 
 
 def isSorted(collection: list, ascending: bool = True) -> bool:
@@ -172,6 +185,7 @@ def isSorted(collection: list, ascending: bool = True) -> bool:
 ##################################### UNIT LIB TEST #####################################
 def execute_test():
     pass
+
 
 # Para testes unitários
 if __name__ == '__main__':
