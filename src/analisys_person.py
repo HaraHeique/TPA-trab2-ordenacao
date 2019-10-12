@@ -32,10 +32,12 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
     filenames: List[str] = __get_all_filenames_from_directory(directory_path, True)
 
     ## SETANDO O TIME OUT ATRAVÉS DO MAIOR ARQUIVO ##
+    print("\n%sCALCULATING TIMEOUT%s" %(hifens, hifens))
     biggest_file_records: str = max(filenames, key=(lambda f: os.path.getsize(os.path.join(directory_path, f))))
     lst_person: List[Person] = __readCSV_person(os.path.join(directory_path, biggest_file_records))
     times_execution: float = __calculate_time_sort_algorithm(lst_person, QUICKSORT_KEY)
     TIME_OUT: float = times_execution * 10
+    print("{0}timeout = {1}(ms){0}\n".format(hifens, TIME_OUT))
 
     # Registra os tempos médios de execução dos algoritmos de ordenação
     dic_register_time_execution: Dict[str, Dict[int, float]] = {}
@@ -65,7 +67,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
     ## CRIAR UM ARQUIVO FINAL COM TODOS OS ALGORITMOS JUNTOS COM SEUS RESPECTIVOS
     ## TEMPOS MÉDIO DE EXECUÇÃO POR NÚMERO DE REGISTROS
-    __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution, dic_sorting_choices)
+    __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution, dic_sorting_choices, TIME_OUT)
 
     print("%sANALISYS FINISHED%s" %(hifens, hifens))
 
@@ -225,7 +227,7 @@ def __register_average_times_per_num_executions(dic_register_time_execution: Dic
         __writeCSV_analisys_person(dataCSV, os.path.join(directory, filename))
 
 def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, object]], 
-                                                               dic_sorting_choices: Dict[str, str]) -> None:
+                                                               dic_sorting_choices: Dict[str, str], timeout: float) -> None:
     
     if not dic_register_time_execution:
         return
@@ -253,6 +255,9 @@ def __register_all_algorithms_average_times_per_num_executions(dic_register_time
     header: list = lst_num_records
     header.insert(0, "")
     dataCSV.insert(0, header)
+
+    # Adicionando o valor de timeout
+    dataCSV.append(["Timeout", timeout])
 
     filename: str = "analisys_all_algorithms_average{0}".format(__EXTENSION_FILES)
 
