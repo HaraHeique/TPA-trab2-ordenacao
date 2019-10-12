@@ -6,8 +6,8 @@ import math
 '''
 
 ALGORITHMS_SORTING_CHOICES: dict = {
-    #"selectsort": "Selection Sort",
-    #"insertsort": "Insertion Sort",
+    "selectsort": "Selection Sort",
+    "insertsort": "Insertion Sort",
     "mergesort": "Merge Sort",
     "quicksort": "Quicksort",
     "heapsort": "Heapsort",

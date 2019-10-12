@@ -169,6 +169,7 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
 
         if time_execution == time_out:
             count_timeout_times += 1
+            print("\nTIME-OUTED\n")
             if count_timeout_times == limit_of_timeout:
                 lst_time_execution += ([time_out] * (times_of_execution - limit_of_timeout))
                 break
