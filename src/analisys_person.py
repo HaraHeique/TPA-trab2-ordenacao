@@ -156,12 +156,20 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
     # Realiza os cálculos de média
     dataCSV_execution_times: List[object] = []
     lst_time_execution: List[float] = []
-    
+    count_timeout_times = 0
+    limit_of_timeout = 2
+
     for execution in range(1, times_of_execution + 1):
         __call_process_timeout(time_out, __calculate_time_of_sort_algorithm, [lst_person, algorith_key])
         time_execution: float = _queue_process.get_nowait() if not _queue_process.empty() else time_out
         dataCSV_execution_times.append([execution, time_execution])
         lst_time_execution.append(time_execution)
+
+        if time_execution == time_out:
+            count_timeout_times += 1
+            if count_timeout_times == limit_of_timeout:
+                lst_time_execution += ([time_out] * (times_of_execution - limit_of_timeout))
+                break
 
     average_time: float = sum(lst_time_execution) / times_of_execution
 
