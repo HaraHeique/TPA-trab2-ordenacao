@@ -11,7 +11,6 @@ from multiprocessing import Process, Queue
 
 __OUTPUT_ANALYZE_FILES_PATH: str = os.path.dirname(os.path.abspath(__file__)) + "/files/analyze"
 __EXTENSION_FILES: str = ".csv"
-_TIME_OUT: float
 _queue_process: Queue = Queue()
 
 os.makedirs(__OUTPUT_ANALYZE_FILES_PATH, exist_ok=True)
@@ -34,10 +33,9 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
     ## SETANDO O TIME OUT ATRAVÉS DO MAIOR ARQUIVO ##
     biggest_file_records: str = max(filenames, key=(lambda f: os.path.getsize(os.path.join(directory_path, f))))
-    print(biggest_file_records)
     lst_person: List[Person] = __readCSV_person(os.path.join(directory_path, biggest_file_records))
     times_execution: float = __calculate_time_sort_algorithm(lst_person, QUICKSORT_KEY)
-    _TIME_OUT = times_execution * 10
+    TIME_OUT: float = times_execution * 10
 
     # Registra os tempos médios de execução dos algoritmos de ordenação
     dic_register_time_execution: Dict[str, Dict[int, float]] = {}
@@ -52,7 +50,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
             print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[algorithm_key].upper()))
 
-            dic_time_execution: float = __register_average_time_execution(lst_person, algorithm_key, times_of_execution)
+            dic_time_execution: float = __register_average_time_execution(lst_person, algorithm_key, times_of_execution, TIME_OUT)
 
             if algorithm_key in dic_register_time_execution:
                 dic_register_time_execution[algorithm_key][len(lst_person)] = dic_time_execution
@@ -154,14 +152,14 @@ def __calculate_time_sort_algorithm(lst_person: List[Person], algorithm_key: str
 
     return finish_time - start_time
 
-def __register_average_time_execution(lst_person: List[Person], algorith_key: str, times_of_execution: int) -> Dict[str, float]:
+def __register_average_time_execution(lst_person: List[Person], algorith_key: str, times_of_execution: int, time_out: float) -> Dict[str, float]:
     # Realiza os cálculos de média
     dataCSV_execution_times: List[object] = []
     lst_time_execution: List[float] = []
     
     for execution in range(1, times_of_execution + 1):
-        __call_process_timeout(_TIME_OUT, __calculate_time_of_sort_algorithm, [lst_person, algorith_key])
-        time_execution: float = _queue_process.get_nowait() if not _queue_process.empty() else _TIME_OUT
+        __call_process_timeout(time_out, __calculate_time_of_sort_algorithm, [lst_person, algorith_key])
+        time_execution: float = _queue_process.get_nowait() if not _queue_process.empty() else time_out
         dataCSV_execution_times.append([execution, time_execution])
         lst_time_execution.append(time_execution)
 
