@@ -172,6 +172,14 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
             print("\nTIME-OUTED\n")
             if count_timeout_times == limit_of_timeout:
                 lst_time_execution += ([time_out] * (times_of_execution - limit_of_timeout))
+                
+                while True:
+                    execution += 1
+                    dataCSV_execution_times.append([execution, time_out])
+
+                    if execution == time_execution:
+                        break
+
                 break
 
     average_time: float = sum(lst_time_execution) / times_of_execution
