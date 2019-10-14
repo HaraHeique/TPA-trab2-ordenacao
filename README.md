@@ -26,7 +26,7 @@ No escopo do trabalho é necessário implementar sete dos nove algoritmos de ord
 A estrutura da aplicação está definida da seguinte maneira:
 
 ```
-trabalho-final-lfa-DHM
+TPA-trab2-ordenacao
 |_ README.md
 |_ relatório.pdf
 |_ codes-references.txt
