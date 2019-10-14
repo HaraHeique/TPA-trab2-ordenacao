@@ -27,24 +27,24 @@ A estrutura da aplicação está definida da seguinte maneira:
 
 ```
 TPA-trab2-ordenacao
-|_ README.md
-|_ relatório.pdf
-|_ codes-references.txt
-|_ src
-    |_ analisys_person.py
-    |_ build.py
-    |_ handler_person.py
-    |_ sort_collection.py
-    |_ files
-        |_ input
-            |_ *arquivos entrada*.csv
-        |_ output
-            |_ *arquivos saída*.csv
-        |_ analyze
-            |_ *arquivos saída dos testes da análise*.csv
-    |_ models
-        |_ ExecutionType.py
-        |_ Person.py
+    |_ README.md
+    |_ relatório.pdf
+    |_ codes-references.txt
+    |_ src
+        |_ analisys_person.py
+        |_ build.py
+        |_ handler_person.py
+        |_ sort_collection.py
+        |_ files
+            |_ input
+                |_ *arquivos entrada*.csv
+            |_ output
+                |_ *arquivos saída*.csv
+            |_ analyze
+                |_ *arquivos saída dos testes da análise*.csv
+        |_ models
+            |_ ExecutionType.py
+            |_ Person.py
 ```
 
 ### Como executar?
