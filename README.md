@@ -22,6 +22,31 @@ No escopo do trabalho é necessário implementar sete dos nove algoritmos de ord
 - Smoothsort
 - Patience sorting
 
+### Descrição geral
+A estrutura da aplicação está definida da seguinte maneira:
+
+```
+trabalho-final-lfa-DHM
+|_ README.md
+|_ relatório.pdf
+|_ codes-references.txt
+|_ src
+    |_ analisys_person.py
+    |_ build.py
+    |_ handler_person.py
+    |_ sort_collection.py
+    |_ files
+        |_ input
+            |_ *arquivos entrada*.csv
+        |_ output
+            |_ *arquivos saída*.csv
+        |_ analyze
+            |_ *arquivos saída dos testes da análise*.csv
+    |_ models
+        |_ ExecutionType.py
+        |_ Person.py
+```
+
 ### Como executar?
 Para buildar/executar o app no ambiente Linux, onde a linguagem Python geralmente já vem instalado nativamente, basta abrir o CLI(Command Line Interface) no diretório __/src__ e digitar o seguinte comando:
 
