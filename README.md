@@ -47,6 +47,13 @@ TPA-trab2-ordenacao
             |_ Person.py
 ```
 
+#### Descrição geral dos arquivos
+Descrição geral dos principais arquivos contidos nesta aplicação:
+
+Arquivo|Path|Descrição
+---|---|---
+**analisys_person.py**|src/analisys_person.py|Arquivo que contém toda lógica do script de análise realizada acerca da performance de todos os sete algoritmos implementados. Ele que é responsável por fazer todo o processamento dos dados de entrada através da função *analyze*, onde é passado como argumento um caminho do diretório e gerado arquivos .csv de saída que são armazenados dentro do diretório */analyze*, os quais possuem os resultados obtidos do processamento prontos para serem analizados.
+
 ### Como executar?
 Para buildar/executar o app no ambiente Linux, onde a linguagem Python geralmente já vem instalado nativamente, basta abrir o CLI(Command Line Interface) no diretório __/src__ e digitar o seguinte comando:
 
