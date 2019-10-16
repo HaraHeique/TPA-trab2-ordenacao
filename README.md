@@ -71,6 +71,8 @@ Para buildar/executar o app no ambiente Linux, onde a linguagem Python geralment
     Ou
     $ python3 build.py --input arquivo_entrada.csv --output arquivo_saida.csv
 
+__OBS.:__ Importante ressaltar que o arquivo de entrada deve estar presente no diretório __/src/files/input__ e o arquivo de saída será gerado no diretório __/src/files/output__
+
 Note que o nome dos arquivos tanto de entrada, precedidos de *--input*, quanto de saída, precedidos de *--output*, são **obrigatórios**. Caso não sejam passados será lançada uma exceção explicando formas de ser executada de maneira correta. Também há a possibilidade de utilização do comando abaixo que também fornecerá informações para o correto comando de execução do app.
 
     $ python3 build.py --help
