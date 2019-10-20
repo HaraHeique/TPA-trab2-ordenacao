@@ -35,12 +35,11 @@ def main_without_args(lst_filenames: List[str]):
         lstPerson: List[Person] = handler_person.readCSV(filename)
         sort.quicksort(lstPerson)
         print("Is sorted? %s" %(sort.isSorted(lstPerson)))
-        #handler_person.show_people(lstPerson)
+        handler_person.show_people(lstPerson)
 
-# TODO Script de execução automática dos testes de análise
 def run_analysis():
     absolute_path: str =  os.path.dirname(os.path.abspath(__file__)) + "/files/input"
-    number_of_executions: int = 1
+    number_of_executions: int = 10
     analisys_person.analyze(absolute_path, number_of_executions)
 
 def choose_execution(execution_type: ExecutionType):
