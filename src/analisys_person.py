@@ -25,7 +25,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
     hifens: str = "-" * 10
     print("NUMBER OF EXECUTIONS BY ALGORITHM IS: %d\n" %(times_of_execution))
     print("%sSTARTING ANALISYS%s" %(hifens, hifens))
-    
+
     dic_sorting_choices: Dict[str, str] = sort.ALGORITHMS_SORTING_CHOICES
     lst_sorting_choices: List[str] = list(dic_sorting_choices.keys())
     QUICKSORT_KEY = "quicksort"
@@ -61,7 +61,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
 
             print("Average time result: {0}ms".format(dic_time_execution["average"]))
             print(hifens*10)
-    
+
     ## CRIAR ARQUIVOS COM A MÉDIA DE EXECUÇÃO FINAL E SUA QUANTIDADE DE REGISTROS ##
     __register_average_times_per_num_executions(dic_register_time_execution)
 
@@ -74,10 +74,10 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
     return True
 
 def __get_all_filenames_from_directory(path: str, orderble: bool = False) -> List[str]:
-    lst_filenames: List[str] = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))] 
+    lst_filenames: List[str] = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     if orderble:
         lst_filenames.sort()
-        
+
     return lst_filenames
 
 def __count_records_file(filename: str):
@@ -107,7 +107,7 @@ def __readCSV_person(path_file: str) -> List[Person]:
             next(dataCSV)
 
             # Percorre pelas linhas instanciando o objeto da classe Person armazenando dentro da lista
-            for dataRow in dataCSV: 
+            for dataRow in dataCSV:
                 lstPerson.append(Person(
                     dataRow[2], # id
                     dataRow[0], # email
@@ -159,7 +159,7 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
     dataCSV_execution_times: List[object] = []
     lst_time_execution: List[float] = []
     count_timeout_times = 0
-    limit_of_timeout = 2
+    limit_of_timeout = 1
 
     for execution in range(1, times_of_execution + 1):
         __call_process_timeout(time_out, __calculate_time_of_sort_algorithm, [lst_person, algorith_key])
@@ -172,6 +172,11 @@ def __register_average_time_execution(lst_person: List[Person], algorith_key: st
             print("\nTIME-OUTED\n")
             if count_timeout_times == limit_of_timeout:
                 lst_time_execution += ([time_out] * (times_of_execution - limit_of_timeout))
+
+                while execution <= time_execution:
+                    execution += 1
+                    dataCSV_execution_times.append([execution, time_out])
+
                 break
 
     average_time: float = sum(lst_time_execution) / times_of_execution
@@ -213,12 +218,12 @@ def __register_average_times_per_num_executions(dic_register_time_execution: Dic
 
         for num_records in lst_num_records:
             dataCSV.append([
-                num_records, 
-                dic_algorithm_executions[num_records]["average"], 
+                num_records,
+                dic_algorithm_executions[num_records]["average"],
                 dic_algorithm_executions[num_records]["min"],
                 dic_algorithm_executions[num_records]["max"]
             ])
-        
+
         # Seta o nome do arquivo e diretório, onde caso não esteja criado ainda é criado
         filename: str = "{0}{1}".format(algorithm_key, __EXTENSION_FILES)
         directory: str = os.path.join(__OUTPUT_ANALYZE_FILES_PATH, "average_times_numbers_records")
@@ -227,12 +232,12 @@ def __register_average_times_per_num_executions(dic_register_time_execution: Dic
         # Escreve o arquivo de saída
         __writeCSV_analisys_person(dataCSV, os.path.join(directory, filename))
 
-def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, object]], 
+def __register_all_algorithms_average_times_per_num_executions(dic_register_time_execution: Dict[str, Dict[int, object]],
                                                                dic_sorting_choices: Dict[str, str], timeout: float) -> None:
-    
+
     if not dic_register_time_execution:
         return
-    
+
     # Primeira linha contém as informações de número de registro em ordem crescente
     lst_keys_algorithms: List[dict] = list(dic_register_time_execution.keys())
     lst_num_records: List[int] = list(dic_register_time_execution[lst_keys_algorithms[0]].keys())
