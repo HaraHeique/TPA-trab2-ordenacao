@@ -5,7 +5,7 @@ O trabalho em questão é da disciplina de *TPA (Técnicas de Programação Avan
 ### Informações gerais
 - **Autores**: David Vilaça, Harã Heique e Larissa Motta
 - **Linguagem de programação**: Python (versão 3.6.8+)
-- **Ferramentas de suporte**: Nenhuma (por enquanto)
+- **Ferramentas de suporte**: Jupyter + Matplotlib
 - **Ambiente de desenvolvimento**: Visual Studio Code (versão 1.35.1+)
 
 A ordenação é um dos problemas algorı́tmicos mais fundamentais da ciência da computação. Já foi afirmado que até 25% de todos os ciclos de CPU são usados para ordenação, o que fornece um grande incentivo para estudos adicionais e otimização sobre
