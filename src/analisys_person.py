@@ -47,7 +47,7 @@ def analyze(directory_path: str, times_of_execution: int) -> bool:
         # Coloca os objetos em cache para ser em uma lista de Person
         lst_person: List[Person] = __readCSV_person(os.path.join(directory_path, filename))
 
-        # Faz a análise para o resto dos algoritmos removendo o quicksort, pois já foi feito
+        # Faz a análise para todos os algoritmos de ordenção presentes na lista
         for algorithm_key in lst_sorting_choices:
 
             print("{0} records running for {1}...".format(lst_person.__len__(), dic_sorting_choices[algorithm_key].upper()))
